@@ -1,0 +1,16 @@
+def buscar_elemento(num):
+  i=0
+  dev=-1
+  for elemento in arreglo:
+    if elemento==buscar:
+      dev=i
+      i=i+1
+    else:
+      i=i+1
+  return dev
+
+
+arreglo=armar_lista()
+buscar=int(input("Ingrese numero a buscar"))
+posicion=buscar_elemento(buscar)
+print(posicion)
