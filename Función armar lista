@@ -1,0 +1,16 @@
+def armar_lista():
+ a=1
+ i=1
+ lista=[]
+ while a!=-1:
+   a=int(input("Ingrese valor de la lista o -1 para terminar"))     
+   if a>20 or a<0:
+       if a==-1:
+        print ("lista cargada correctamente")
+       else:
+        print ("Valor incorrecto, por favor ingrese otro o -1 para terminar")
+        i=i
+   else:
+         lista.insert(i,a)
+         i=i+1
+ return lista
