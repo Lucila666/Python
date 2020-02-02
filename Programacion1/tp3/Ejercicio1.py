@@ -12,6 +12,33 @@
 #j. Determinar si la matriz es simétrica con respecto a su diagonal secundaria.
 #k. Determinar qué columnas de la matriz son palíndromos (capicúas), devolviendo una lista con los números de las mismas.
 
+#Ejercicio 1: Verificado para matrices cuadradas.
+import random
+def crear_matriz(n,m):
+    matriz=[[0]*m for i in range(n)]
+    return matriz
+
+def imprimir_matriz(matriz):
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            print("%02d" %matriz[i][j],end="  ")
+        print()
+    print()
+        
+def carga_estatica(matriz):
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            matriz[i][j]=int(input("Ingrese valor"))
+            
+def carga_dinamica(matriz):
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            matriz[i][j]=random.randint(0,99)
+                   
+            
+def ordenar_matriz(matriz):
+    for i in range(len(matriz)):
+        matriz[i].sort()
 def cambiar_filas(matriz,f1,f2):
     aux=list(matriz[f1])
     matriz[f1]=matriz[f2].copy()
