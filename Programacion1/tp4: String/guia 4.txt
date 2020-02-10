@@ -1,0 +1,363 @@
+1.Desarrollar una función que determine si una cadena de caracteres es capicúa, 
+sin utilizar cadenas auxiliares. Escribir además un programa que permita verificar su 
+funcionamiento.
+#Ejercicio 1
+def cadena_capicua(cadena):
+    largo=len(cadena)
+    bandera=True
+    for i in range(largo//2):
+        if cadena[i]!=cadena[largo-1-i]:
+            bandera=False
+    return bandera
+#Programa Principal
+frase=input("Ingrese una frase")
+capicua=cadena_capicua(frase)
+if capicua==True:
+    print("Es capicua")
+else:
+    print("No es capicua")
+
+2.Leer una cadena de caracteres e imprimirla centrada en pantalla. 
+Suponer que la misma tiene 80 columnas.
+
+#Ejercicio 2:
+
+frase=input("Ingrese una frase")
+longitud=len(frase)
+ancho=(80-longitud)//2
+frasecentrada=ancho*" "+frase
+print(frasecentrada)
+
+3.Los números de claves de dos cajas fuertes están intercalados dentro de un número entero 
+llamado "clave maestra", cuya longitud no se conoce. Realizar un programa para obtener 
+ambas claves, donde la primera se construye con los dígitos impares de la clave maestra y 
+la segunda con los dígitos pares. Los dígitos se numeran desde la izquierda. Ejemplo: Si 
+clave maestra = 18293, la clave 1 sería 123 y la clave 2 sería 89.
+
+#Ejercicio 3:
+
+clavemaestra=input("Ingrese su clave maestra")
+largo=len(clavemaestra)
+clave1=""
+clave2=""
+for i in range(largo):
+    if i%2==0:
+        clave1=clave1+clavemaestra[i]
+    else:
+        clave2=clave2+clavemaestra[i]
+print(clave1,"\n",clave2, end="")
+
+
+4. Escribir una función que reciba como parámetro un número entero entre 0 y 3999
+y lo convierta en un número romano, devolviéndolo en una cadena de caracteres.
+¿En qué cambiaría la función si el rango de valores fuese diferente?
+
+
+lista_unidades=['I','II','III','IV','V','VI','VII','VIII','IX']        
+lista_decenas=['X','XX','XXX','XL','L','LX','LXX','LXXX','XC']
+lista_centenas=['C','CC','CCC','CD','D','DC','DC','DCC','DCCC','CM']
+
+numero=int(input("Ingrese un numero"))
+while (numero<=0 or numero>3999):
+    numero=int(input("Ingrese un numero"))
+
+numero=str(numero)
+if len(numero)==4:
+    m=int(numero[0])
+    c=int(numero[1])
+    d=int(numero[2])
+    u=int(numero[2])
+elif len(numero)==3:
+    c=int(numero[0])
+    d=int(numero[1])
+    u=int(numero[2])
+    m=0
+elif len(numero)==2:
+    d=int(numero[0])
+    u=int(numero[1])
+    m=0
+    c=0
+else:
+    u=int(numero[0])
+    m=0
+    c=0
+    d=0
+    
+if u!=0:
+    uni=lista_unidades[u-1]
+else:
+    uni=""
+if d!=0:
+    dec=lista_decenas[d-1]
+else:
+    dec=""
+if c!=0:
+    cen=lista_centenas[c-1]
+else:
+    cen=""
+if m!=0:
+    mil=m*'M'
+else:
+    mil=""
+numero_romano=mil+cen+dec+uni
+print(numero_romano)
+
+5.Escribir una función filtrar_palabras() que reciba una cadena de caracteres conteniendo 
+una frase y un entero N, y devuelva otra cadena con las palabras que tengan N o más caracter
+es de la cadena original. Escribir también un programa para verificar el comportamiento de 
+la misma. Hacer tres versiones de la función, para cada uno de los siguientes casos: 
+a.Utilizando sólo ciclos normales 
+b.Utilizando listas por comprensión 
+c.Utilizando la función filter
+
+#Ejercicio 5:Se ven afectadas palabras con
+#signos de puntuacion pegadas :/
+
+def filtrar_palabras(cadena,n):
+    lista_palabras=cadena.split()
+    palabras_seleccionadas=[]
+    for i in range(len(lista_palabras)):
+        if len(lista_palabras[i])>=n:
+            palabras_seleccionadas.append(lista_palabras[i])
+    seleccion=" ".join(palabras_seleccionadas)
+    return seleccion
+
+def filtrar_palabras2(cadena,n):
+    lista_palabras=cadena.split()
+    palabras_seleccionadas=[]
+    [palabras_seleccionadas.append(lista_palabras[i]) for i in range(len(lista_palabras))
+        if len(lista_palabras[i])>=n]
+    seleccion=" ".join(palabras_seleccionadas)
+    return seleccion
+
+def filtrar_palabras3(cadena,n):
+    lista_palabras=cadena.split()
+    palabras_seleccionadas=[]
+    seleccion=filter(lambda i:lista_palabras[i]>=n,lista_palabras)
+   
+    return seleccion
+
+#Programa Principal
+frase=input("Ingrese frase")
+num=int(input("Ingrese largo de palabras"))
+frase_modificada=filtrar_palabras(frase,num)
+print(frase_modificada)
+frase_modificada2=filtrar_palabras2(frase,num)
+print(frase_modificada2)
+frase_modificada3=filtrar_palabras2(frase,num)
+print(frase_modificada3)
+
+
+6.Desarrollar una función que extraiga una subcadena de una cadena de caracteres, 
+indicando la posición y la cantidad de caracteres deseada. Devolver la subcadena como 
+valor de retorno. Escribir también un programa para verificar el comportamiento de la misma.
+Ejemplo, dada la cadena "El número de teléfono es 43567890" extraer la subcadena que 
+comienza en la posición 25 y tiene 9 caracteres, resultando la subcadena "4356-7890". 
+Escribir una función para cada uno de los siguientes casos: 
+a.Utilizando rebanadas
+b.Sin utilizar rebanadas
+
+#Ejercicio 6:
+def subcadena1(cadena,pos,cant):
+    subcadena=cadena[pos:pos+cant]
+    return subcadena
+
+def subcadena2(cadena,pos,cant):
+    lista=[]
+    for i in range(pos,cant+pos):
+        lista.append(cadena[i])
+    return subcadena
+
+#Programa Principal
+frase="El numero de telefono es 4356-7890"
+subcadenaA=subcadena1(frase,25,9)
+print(subcadenaA)
+subcadenaB=subcadena1(frase,25,9)
+print(subcadenaB)
+
+7.Escribir una función para eliminar una subcadena de una cadena de caracteres, a partir 
+de una posición y cantidad de caracteres dadas, devolviendo la cadena resultante. Escribir 
+también un programa para verificar el comportamiento de la misma. Escribir una función para
+ cada uno de los siguientes casos: 
+a.Utilizando rebanadas 
+b.Sin utilizar rebanadas
+
+#Ejercicio 7:
+
+def eliminar_cadena(cadena,pos,cant):
+    borrar=cadena[pos:pos+cant]
+    modificada=cadena.strip(borrar)
+    return modificada
+
+def eliminar_cadena2(cadena,pos,cant):
+    borrar=[]
+    for i in range(pos,cant+pos):
+        borrar.append(cadena[i])
+    borrar="".join(borrar)
+    modificada=cadena.strip(borrar)
+    return modificada
+
+#Programa Principal
+frase="El numero de telefono es 4356-7890"
+subcadena=eliminar_cadena(frase,25,9)
+print(subcadena)
+subcadenaB=eliminar_cadena2(frase,25,9)
+print(subcadenaB)
+
+8.Escribir una función que reciba como parámetro una cadena de caracteres en la que las
+ palabras se encuentran separadas por uno o más espacios. Devolver otra cadena con las 
+palabras ordenadas alfabéticamente, dejando un espacio entre cada una.
+
+#Ejercicio 8:
+
+def ordenar_cadena(cadena):
+    cadena=cadena.lower().split()
+    cadena.sort()
+    cadena=" ".join(cadena)
+    return cadena
+
+#Programa Principal
+frase=input("Ingrese frase")
+alfabeticamente=ordenar_cadena(frase)
+print(alfabeticamente)
+
+9. Desarrollar una función que devuelva una subcadena con los últimos N caracteres
+de una cadena dada. La cadena y el valor de N se pasan como parámetros.
+
+#Ejercicio 9:
+def eliminar_caracteres(cadena,n):
+    frase_modificada=cadena[len(cadena)-n:len(cadena)]
+    return frase_modificada
+#Programa Principal
+frase=input("Ingrese su frase")
+num=int(input("ingrese cuantos caracteres quiere"))
+frase_mod=eliminar_caracteres(frase,num)
+print(frase_mod)
+
+10. Escribir un programa que permita ingresar una cadena de caracteres e imprima un
+mensaje indicando cuántas letras y cuántos números contiene. Por ejemplo, si se
+ingresa "Hola Mundo 123" debe indicar que se ingresaron 9 letras y 3 números.
+
+#Ejercicio 10:
+
+def contar_caracteres(cadena):
+    largo=len(cadena)
+    letras=0
+    numeros=0
+    for i in range(largo):
+        if cadena[i].isalpha():
+            letras=letras+1
+        elif cadena[i].isdigit():
+            numeros=numeros+1
+    return letras,numeros
+        
+#Programa Principal
+frase=input("Ingrese su frase")
+cantL,cantN=contar_caracteres(frase)
+salida=f"Se ingresaron {cantL} cantidad de letras, y {cantN} numeros"
+print(salida)
+
+11. Escribir un programa que permita ingresar una cadena de caracteres y coloque en
+mayúscula la primera letra posterior a un espacio, eliminando todos los espacios
+que contenga. Imprimir por pantalla la cadena obtenida.
+Ejemplo:
+Cadena original:
+Platero es pequeño, peludo, suave; tan blando por fuera, que se diría todo de algodón, que no lleva huesos.
+Sólo los espejos de azabache de sus ojos son duros cual dos escarabajos de cristal negro.
+Cadena final:
+PlateroEsPequeño,Peludo,Suave;TanBlandoPorFuera,QueSeDiríaTodoDeAlgodón,QueNoLlevaHuesos.Sólo
+LosEspejosDeAzabacheDeSusOjosSonDurosCualDosEscarabajosDeCristalNegro.
+
+#Ejercicio 11:
+
+def modificar_cadena(cadena):
+    """Elimina espacios y pone la primer letra de
+cada palabra en mayuscula"""
+    i=0
+    j=0
+    palabras=""
+    while i<len(cadena):
+        while i<len(cadena)and(cadena[i].isalpha() or cadena[i]!=' '):
+            i=i+1
+        palabras=palabras+cadena[j:i].capitalize()
+        j=i+1
+        i=i+1
+    return palabras
+        
+#Programa Principal
+frase="Platero es pequeño, peludo, suave; tan blando por fuera, que se diría todo de algodón, que no lleva huesos. Sólo los espejos de azabache de sus ojos son duros cual dos escarabajos de cristal negro."
+#frase="hola, como estas?"
+frase_modificada=modificar_cadena(frase)
+print(frase_modificada)
+
+12.Desarrollar una función para reemplazar todas las apariciones de una palabra por
+otra en una cadena de caracteres y devolver la cadena obtenida y un entero con la
+cantidad de reemplazos realizados. Escribir también un programa para verificar el
+comportamiento de la función.
+
+
+#Ejercicio 12:
+
+def cambiar_palabra(cadena):
+    cont=0
+    pos=0
+    trabalenguas=cadena.replace("Pablito","Menganito")
+    while pos!=-1:
+        pos=trabalenguas.find("Menganito",pos)
+        if pos!=-1:
+            cont=cont+1
+            pos+=1
+    return trabalenguas,cont
+        
+#Programa Principal
+frase="Pablito clavó un clavito, ¿qué clavito clavó Pablito?, el clavito que Pablito clavó, era el clavito de Pablito"
+#frase="hola, como estas?"
+frase_modificada,veces=cambiar_palabra(frase)
+print(frase_modificada)
+print(f"Se cambio {veces}")
+
+
+
+13. Escribir un programa que cuente cuántas veces se encuentra una subcadena dentro
+de otra cadena, sin diferenciar mayúsculas y minúsculas. Tener en cuenta que
+los caracteres de la subcadena no necesariamente deben estar en forma consecutiva
+dentro de la cadena, pero sí respetando el orden de los mismos. Ejemplo:
+Cadena:
+Platero es pequeño, peludo, suave; tan blando por fuera, que se diría todo de algodón, que no lleva huesos.
+Sólo los espejos de azabache de sus ojos son duros cual dos escarabajos de cristal negro.
+Sub-cadena: UADE
+Cantidad encontrada: 4 (Las coincidencias están resaltadas en la cadena siguiente)
+Platero es pequeño, peludo, suave; tan blando por fuera, que se diría todo de algodón, que no lleva
+huesos. Sólo los espejos de azabache de sus ojos son duros cual dos escarabajos de cristal negro.
+
+#Ejercicio 13:
+
+cadena="Platero es pequeño, peludo, suave; tan blando por fuera, que se diría todo de algodón, que no lleva huesos. Sólo los espejos de azabache de sus ojos son duros cual dos escarabajos de cristal negro."
+subcadena="uade"
+cadena_min=cadena.lower()
+bandera=True
+cont=0
+pos=0
+while bandera:
+    for letra in subcadena:
+        busqueda=cadena_min.find(letra,pos)
+        if busqueda!=-1:
+            pos=busqueda
+        else:
+            bandera=False
+            break
+#el siguiente else solo se ejecuta si el for termino de manera natural, sin el break   
+    else:
+        cont+=1
+print(f"La subcadena {subcadena}, apareció {cont} veces")
+
+
+14. Escribir un programa para crear una lista por comprensión con los naipes de la baraja
+española. La lista debe contener cadenas de caracteres. Ejemplo: ["1 Oros",
+"2 Oros"... ]. Imprimir la lista por pantalla.
+
+#Ejercicio 14:
+
+
+barajas=[[str(i)+palo for i in range (1,13)] for palo in["Oro","Copa","Espada","Basto"]]
+print(barajas)
