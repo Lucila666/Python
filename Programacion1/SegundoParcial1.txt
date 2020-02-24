@@ -1,0 +1,43 @@
+﻿def limpiarpalabra(pal):
+    i = 0
+    while i<len(pal) and not pal[i].isalpha():
+        i += 1
+    j = len(pal) - 1
+    while j>i and not pal[j].isalpha():
+        j -= 1
+    return pal[i:j+1]
+
+def escapicua(pal):
+    if len(pal)<=1:
+        return True
+    elif pal[0].upper() != pal[-1].upper():
+        return False
+    else:
+        return escapicua(pal[1:-1])
+
+try:
+    arch = open("t:/RT/Palindromos.txt")
+    palindromos = []
+    for linea in arch:
+        listadepalabras = linea.split()
+        for palabra in listadepalabras:
+            palabralimpia = limpiarpalabra(palabra)
+            if escapicua(palabralimpia) and palabralimpia not in palindromos:
+                palindromos.append(palabralimpia)
+    longmaslarga = len(max(palindromos, key=len))
+    maslargas = list(filter(lambda x:len(x)==longmaslarga, palindromos))
+    plural = "s" if len(maslargas)>1 else ""
+    print(f"Palabra{plural} capicúa{plural} más larga{plural}:", *maslargas)
+    # La función lambda devuelve la cantidad de vocales de cada palabra,
+    # la que se usa como clave para el ordenamiento.
+    palindromos.sort(key=lambda palabra:len(list(filter(lambda x:x in "aeiouAEIOUáéíóúÁÉÍÓÚ", palabra))))
+    print()
+    print(f"Lista de {len(palindromos)} palabras capicúas ordenadas según la cantidad de vocales:")
+    print(*palindromos, sep="\n")
+except (FileNotFoundError, OSError) as mensaje:
+    print("ERROR:", mensaje)
+finally:
+    try:
+        arch.close()
+    except NameError:
+        pass
