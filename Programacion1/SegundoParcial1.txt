@@ -1,4 +1,6 @@
-﻿def limpiarpalabra(pal):
+#Resolucion propuesta por el profesor
+
+def limpiarpalabra(pal):
     i = 0
     while i<len(pal) and not pal[i].isalpha():
         i += 1
